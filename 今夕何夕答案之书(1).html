@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>答案之书</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+  }
+  #canvas {
+    width: 600px;
+    height: 700px;
+    position: relative;
+  }
+  .answer, .explanation {
+    position: absolute;
+    left: 32px;
+    font-family: 'SimSun', sans-serif;
+  }
+  .answer {
+    top: 44px;
+    width: 500px;
+    line-height: 65px;
+    font-size: 40px;
+    color: #F9DBB3;
+    font-weight: bold;
+    text-align: justify;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all; /* 强制换行 */
+  }
+  .explanation {
+    top: 234px; /* 44 + 190 + 22 */
+    font-size: 16px;
+    line-height: 26px;
+    color: white;
+  }
+  button {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 32px;
+    border: none;
+    border-radius: 16px;
+    background-color: #1C1C1C;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+  }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="answer" id="answerText"></div>
+  <div class="explanation" id="explanationText"></div>
+  <button onclick="generateAnswer()">默念问题、寻找答案</button>
+</div>
+
+<!-- 添加背景音乐 -->
+<audio id="backgroundMusic" loop>
+  <source src="一念.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const answers = [
+    "希望你快乐，希望你平安",
+"我们终会以更好的自己再次相见",
+"最重要的，是要珍惜你们自己",
+"请随心绽放，不畏艰难困苦，不畏汹涌人流",
+"你要做你自己，要做永远只属于你自己的自己",
+"会在某一个节点相遇、相知、相爱",
+"得胜当以你为期，越山先悦己",
+"我们不是限定，是来日方长",
+"外面风雨琳琅，漫山遍野都是今天",
+"让你成为你心目中的那个你认为的最好的自己",
+"无远弗届，山海皆达",
+"我希望在没有见面的日子里，你们可以好好地爱自己",
+"请随心绽放，不畏艰难困苦，不畏汹涌人流",
+"对自己再好一点，再再好一点，好吗",
+"我们在这一生里，会遇到很多的人",
+"不要畏惧再见，不要畏惧别离",
+"我爱你们，我爱你们",
+"听叶响，闻花香，少思量",
+"和光同尘，与时舒卷",
+  ];
+
+  function generateAnswer() {
+    const randomIndex = Math.floor(Math.random() * answers.length);
+    let answer = answers[randomIndex];
+    // 将答案文本按20个字符进行分隔
+    const firstLine = answer.substring(0, 11);
+    const secondLine = answer.substring(11, 22);
+    answer = `${firstLine}\n${secondLine}`;
+    document.getElementById('answerText').innerText = answer;
+    document.getElementById('explanationText').innerText = "遇到问题、犹豫不决时，不要忘记有人拿着花在这里等你。";
+    // 当生成答案时开始播放背景音乐
+    document.getElementById('backgroundMusic').play();
+  }
+
+  // Initially hide the answer and explanation
+  document.getElementById('answerText').style.display = 'none';
+  document.getElementById('explanationText').style.display = 'none';
+
+  // Show the answer and explanation after the button is clicked
+  document.querySelector('button').addEventListener('click', () => {
+    document.getElementById('answerText').style.display = 'block';
+    document.getElementById('explanationText').style.display = 'block';
+  });
+</script>
+</body>
+</html>
